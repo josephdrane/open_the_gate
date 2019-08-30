@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Open The Gate">
+    <meta name="author" content="Joseph Drane">
+    <title>Subnet Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/drane.css') }}">
+</head>
+<body>
+
+<div>
+  <nav class="navbar navbar-dark bg-dark text-white">
+  <!-- Navbar content -->
+  <a class="navbar-brand">Open The Gate</a>
+  <form class="form-inline">
+    <a class="btn btn-dark" href="https://github.com/josephdrane">Github</a>
+    <a class="btn btn-dark" href="https://linkedin.com/in/josephdrane">LinkedIn</a>
+</form>
+</nav>
+</div>
+
+<div class="row">
+  <br>
+</div>
+
+<div class="container">
+  <h2>Coming soon...</h2>
+
+  <p>Have a gate to enter your home community?</p>
+
+  <p>Does that gate have a key pad where it rings your phone and you need to press a number?</p>
+
+  <p>And you tend to always miss that call?</p>
+
+  <h3>This app aims to solve that problem, automating the opening of the gate</h3>
+</div>
+
+  <!-- Bootstrap 4.1 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!-- Dynamic Path for Ajax Calls whether the domain changes or not. -->
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+
+  <!-- App -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
