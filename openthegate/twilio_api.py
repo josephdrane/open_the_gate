@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from twilio.rest import Client
 from config import Config
 from openthegate.recipients import Recipients
+from twilio.rest import Client
 from typing import Dict
 
 

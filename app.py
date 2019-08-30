@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
 
+from config import Config as OpenGateAppConfig
+from db.session import Session
+from flask import Flask, render_template, request
 from openthegate.twilio_api import TwilioApi
-from flask import (
-    Flask,
-    render_template,
-    request,
-)
 from time import sleep
 from twilio import twiml
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.twiml.voice_response import VoiceResponse, Gather
-from time import sleep
-from config import Config as OpenGateAppConfig
-from db.session import Session
 
 
 app = Flask(__name__)
