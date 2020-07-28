@@ -6,6 +6,7 @@ import os
 class Config(object):
     def __init__(self):
         self.db_url: str = os.environ["DATABASE_URL"]
+        self.mongo_db_uri: str = os.environ["MONGO_DB_URI"]
         self.twilio_number: str = os.environ["TWILIO_NUMBER"]
         self.account_sid: str = os.environ["ACCOUNT_SID"]
         self.auth_token: str = os.environ["AUTH_TOKEN"]

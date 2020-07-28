@@ -2,6 +2,7 @@
 
 from config import Config as OpenGateAppConfig
 from db.session import Session
+from db.cosmos import Cosmos
 from flask import Flask, render_template, request
 from openthegate.twilio_api import TwilioApi
 from time import sleep
@@ -13,7 +14,8 @@ from twilio.twiml.voice_response import VoiceResponse, Gather
 app = Flask(__name__)
 app.secret_key = "super_secret_key"
 opengateapp_config = OpenGateAppConfig()
-db = Session(opengateapp_config)
+# db = Session(opengateapp_config)
+db = Cosmos(opengateapp_config)
 
 
 @app.route("/voice/", methods=['GET', 'POST'])
@@ -29,20 +31,20 @@ def voice():
 def verify():
     twilio_api = TwilioApi(opengateapp_config)
 
-    if db.get_response_received() == "False":
+    if db.get_response_received() == False:
         response = VoiceResponse()
-        response.redirect('/verify/')
+        response.redirect("/verify/")
         return str(response)
 
     response = db.get_sms_response()
-    if response == 'Yes':
+    if response == "Yes":
         response = VoiceResponse()
-        response.play('', digits='ww9')
+        response.play("", digits="ww9")
         twilio_api.gate_opened_notificiation()
         db.reset_response()
         return str(response)
 
-    elif response == 'No':
+    elif response == "No":
         response = VoiceResponse()
         response.say("Denied")
         db.reset_response()
@@ -64,14 +66,14 @@ def inbound_sms():
     resp = MessagingResponse()
 
     # Determine the right reply for this message
-    if body.lower() == 'yes':
-        db.set_sms_response('Yes')
+    if body.lower() == "yes":
+        db.set_sms_response("Yes")
         db.set_response_received()
         resp.message("Ok, I will let them in for you. :)")
 
 
-    elif body.lower() == 'no':
-        db.set_sms_response('No')
+    elif body.lower() == "no":
+        db.set_sms_response("No")
         db.set_response_received()
         resp.message("Ok, I will deny access. :)")
 
@@ -83,15 +85,15 @@ def inbound_sms():
     return str(resp)
 
 
-@app.route('/')
+@app.route("/")
 def homePage():
-    return render_template('home.html')
+    return render_template("home.html")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # THIS IS USED FOR DEVELOPMENT ONLY, PROD USES GUNICORN
     import os
-    app.secret_key = 'super_secret_key'
+    app.secret_key = "super_secret_key"
     app.debug = True
-    port = int(os.environ.get('PORT', 8000))
-    app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
