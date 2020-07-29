@@ -28,7 +28,7 @@ class Cosmos:
         self.db.update_one(self.query, set_response_received)
 
     def set_sms_response(self, yes_or_no):
-        set_sms_response = { "$set": { "sms_response": "Yes" } }
+        set_sms_response = { "$set": { "sms_response": yes_or_no } }
         self.db.update_one(self.query, set_sms_response)
 
     def reset_response(self):

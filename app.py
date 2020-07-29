@@ -33,13 +33,13 @@ def verify():
 
     if db.get_response_received() == False:
         response = VoiceResponse()
-        response.redirect("/verify/")
+        response.redirect('/verify/')
         return str(response)
 
     response = db.get_sms_response()
     if response == "Yes":
         response = VoiceResponse()
-        response.play("", digits="ww9")
+        response.play('', digits='ww9')
         twilio_api.gate_opened_notificiation()
         db.reset_response()
         return str(response)
@@ -61,7 +61,7 @@ def inbound_sms():
     """Send a dynamic reply to an incoming text message"""
     # Get the message the user sent our Twilio number
     body = request.values.get('Body', None)
-    print('Body :', body)
+    # print('Body :', body)
     # Start our TwiML response
     resp = MessagingResponse()
 
@@ -71,17 +71,15 @@ def inbound_sms():
         db.set_response_received()
         resp.message("Ok, I will let them in for you. :)")
 
-
     elif body.lower() == "no":
         db.set_sms_response("No")
         db.set_response_received()
         resp.message("Ok, I will deny access. :)")
 
-
     else:
         resp.message("I'm sorry I do not understand. Try Yes or No")
 
-    print("Response String : ", str(resp))
+    # print("Response String : ", str(resp))
     return str(resp)
 
 
