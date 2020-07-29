@@ -1,58 +1,31 @@
-# Open The Gage
+# Open The Gate
 
-**WHY?**
-Automate opening the gate in my community.
-The front gate has a keypad that will dial a phone number.
-Whoever answers that phone can open the gate by pressing 9.
-Usually this process is annoying because we miss the calls usually.
-So we automate just opening it for whomever will dial it.
+## About
+
+Gated communities are a bit out dated where they only dial one number. This app helps me solve that problem by putting a Twilio API number that the gate key pad dials. This then texts several numbers where we can respond yes or no based on if we are expecting someone or not. 
+
+## Challenges
+
+- Getting the flask server to wait to respond back to the voice call. This was a bit of trial and error. 
+- Wife did not like me playing loud annoying sounds if we denied access. (Someone using our code wihtout our knowledge).
+- I had this installed on Heroku w/ Heroku Postgres but Twilio has a 15 second timeout on HTTP requests. This would cause a timeout. If you want heroku or install somewhere else then go for it.
+- pipenv - this thing when it worked was great but then it just stopped working and sucks.
 
 ## The Stack
 
-- Python 3.7.2
+- Python
 - Flask
-- twilio
+- Twilio
 - Bootstrap 4.1
-
-
-## How to run locally
-
-You won't be able to test receiving a call but you can send a text running local.
-
-1. git clone this repo (recommend forking and modifying for your needs)
-2. Install [Python3](https://www.python.org/downloads/)
-3. Install [pipenv](https://pipenv.readthedocs.io/en/latest/) (I use this for virtual environments)
-```
-pip3 install pipenv
-```
-4. Setup a virtual environment for Python 3
-```
-pipenv install --three
-```
-5. Install all dependencies from [Pipfile](https://github.com/josephdrane/OpenTheGate/blob/master/Pipfile)
-```
-pipenv sync
-```
-6. Activate the virtual environment
-```
-pipenv shell
-```
-7. Run the app:
-```
-python3 app.py
-```
-8. Test the app by going to [local host port 8000](http://localhost:8000).
-
-## Deploy onto Heroku
-
-Currently setup for deployment onto [Heroku](https://heroku.com).
-That's what the [Procfile](https://github.com/josephdrane/OpenTheGate/blob/master/Procfile) is for.
+- Azure Cosmo Mongo DB
+- Azure App Service
 
 ## Setup in Twilio
 
-Basically you'll need to get an account and a number that supports voice and sms.
-Inside [alert.py](https://github.com/josephdrane/OpenTheGate/blob/master/alert.py) you'll need to update w/ twilio API credentials and your contact list for text notifications.
-You'll then need to deploy to heroku and tell twilio the URL to reach our heroku server.
+- Programmable Messaging > Messaging Services > Create Messaging Service
+INBOUND REQUEST CONFIG = <domain-name>/sms/
+- Phone Numbers > Manage Numbers > Active Numbers > A Call Comes In > Webhook > <domain-name>/voice/
+- Inside [alert.py](https://github.com/josephdrane/OpenTheGate/blob/master/alert.py) you'll need to update w/ twilio API credentials and your contact list for text notifications.
 
 ## Want to help make this better?
 
