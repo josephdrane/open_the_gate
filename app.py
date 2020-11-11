@@ -39,7 +39,7 @@ def verify():
     response = db.get_sms_response()
     if response == "Yes":
         response = VoiceResponse()
-        response.play('', digits='ww9')
+        response.play('', digits='www99')
         twilio_api.gate_opened_notificiation()
         db.reset_response()
         return str(response)
